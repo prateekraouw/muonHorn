@@ -1,0 +1,25 @@
+# Initialize the kernel
+/run/initialize
+
+# Set verbose levels
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+
+# Store trajectories for visualization
+/tracking/storeTrajectory 1
+
+# Set beam parameters
+/gun/particle proton
+/gun/energy 8 GeV  # Higher energy for better muon production
+
+/run/initialize
+# Run events
+/run/beamOn 10000
+
+# 1. Place the target completely inside the structure
+
+# 2.place a detector all around the target, and count the pion production count
+
+# 3. get the particle trajectory ntuple, and plot vs momentum

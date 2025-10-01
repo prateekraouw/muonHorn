@@ -1,0 +1,57 @@
+# Use OpenGL 
+/vis/open OGL
+
+# Draw geometry
+/vis/drawVolume
+
+# Set specific style (surface instead of wireframe to see colors better)
+/vis/viewer/set/style surface
+/vis/viewer/set/viewpointThetaPhi 60 30
+/vis/viewer/zoom 1.5
+
+# Draw coordinate axes
+/vis/scene/add/axes 0 0 0 1 m
+
+# Accumulate all events
+/vis/scene/endOfEventAction accumulate 9999
+
+# Enable storing trajectories
+/tracking/storeTrajectory 1
+
+
+
+# Set to show tracks from anywhere in the world volume
+/vis/scene/add/trajectories smooth rich
+
+# Create a particle filter for muons and pions only
+/vis/filtering/trajectories/create/particleFilter
+/vis/filtering/trajectories/particleFilter-0/add mu+
+/vis/filtering/trajectories/particleFilter-0/add mu-
+/vis/filtering/trajectories/particleFilter-0/add pi+
+/vis/filtering/trajectories/particleFilter-0/add pi-
+/vis/filtering/trajectories/particleFilter-0/add pi0
+
+# Set to show ONLY the selected particles (not inverted)
+/vis/filtering/trajectories/particleFilter-0/invert false
+
+# Color muons and pions distinctly
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/set mu+ blue
+/vis/modeling/trajectories/drawByParticleID-0/set mu- yellow
+/vis/modeling/trajectories/drawByParticleID-0/set pi+ red
+/vis/modeling/trajectories/drawByParticleID-0/set pi- green
+/vis/modeling/trajectories/drawByParticleID-0/set pi0 white
+
+
+# Draw step points for better visibility
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByParticleID-0/default/setStepPtsSize 2
+
+
+
+# Make world volume transparent
+/vis/geometry/set/visibility World 0 false
+
+# Set auto refresh and force a refresh
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
