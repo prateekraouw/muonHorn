@@ -38,7 +38,8 @@ The ultimate goal is to study the collection efficiency of muons/pions from the 
   - Record entries of selected particles with six-dimensional vector output.  
 
 - **Output**   
-  - CSV merge scripts (using `head`/`tail` in the `build/` directory) for combining worker outputs.  
+  - Merge the CSV output (using`` given below in the `build/` directory) for combining worker outputs. 
+  - Analyze the particle output using in the ***6D_merged.csv*** file.  
   - ```bash
     { head -n 1 6D_vector_run0_t0.csv; for f in 6D_vector_run0_t{0..$(nproc)-1}.csv; do tail -n +2 "$f"; done; } > 6D_merged.csv
     
