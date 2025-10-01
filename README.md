@@ -1,5 +1,3 @@
-readme_content = """# Horn Focusing Structure Simulation (Geant4)
-
 ## Overview
 This project implements a **Geant4 simulation** of a **horn focusing system** for the front end of a **Muon Collider**.  
 The design models the interaction of an **8 GeV proton beam** on a **graphite target**, generating secondary particles (primarily pions and muons) that are captured and focused by magnetic horn structures.  
