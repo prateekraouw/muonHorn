@@ -55,4 +55,5 @@ mkdir build && cd build
 cmake ..
 make -j$(nproc)
 ./horn_focus # Runs in GUI mode
+#======OR==========
 ./horn_focus run.mac # Runs in batch mode
