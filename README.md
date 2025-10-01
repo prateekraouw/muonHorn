@@ -37,9 +37,11 @@ The ultimate goal is to study the collection efficiency of muons/pions from the 
   - Multiple cylindrical disk detectors placed downstream (e.g., at 2.1 m and 5.1 m).  
   - Record entries of selected particles with six-dimensional vector output.  
 
-- **Output**  
-  - ROOT ntuples and per-thread CSVs with particle data.  
-  - CSV merge scripts (using `head`/`tail`) for combining worker outputs.  
+- **Output**   
+  - CSV merge scripts (using `head`/`tail` in the `build/` directory) for combining worker outputs.  
+  - ```bash
+    { head -n 1 6D_vector_run0_t0.csv; for f in 6D_vector_run0_t{0..$(nproc)-1}.csv; do tail -n +2 "$f"; done; } > 6D_merged.csv
+    
 
 ---
 
