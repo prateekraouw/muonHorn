@@ -35,8 +35,7 @@ void HornField::GetFieldValue(const G4double Point[4], G4double* B) const {
     const G4double x = Point[0], y = Point[1], z = Point[2];
     B[0]=B[1]=B[2]=0.0;
     if (z < fZPowMin || z > fZPowMax) return;  // geometry window
-    if (z < fZPowMin  || z > fZPowMax) return;  // powered window
-    
+
     const G4double r2 = x*x + y*y;
     if (r2 <= 0.0) return;
 
@@ -45,15 +44,15 @@ void HornField::GetFieldValue(const G4double Point[4], G4double* B) const {
     if (r2 <= rin2) return;              // inside inner conductor → no field
     const G4double r = std::sqrt(r2);
     if (r >= fRout_mm) return;           // outside outer conductor → no field
-    
+
     // Bphi = (μ0/2π) I / r_m
     const G4double r_m  = r * 1.0e-3;
     const G4double Bphi = (kMu0Over2Pi * fI_A) / r_m;
-    
+
     const G4double invr = 1.0/r;
     const G4double cosf = x * invr;
     const G4double sinf = y * invr;
-    
+
     B[0] = -Bphi * sinf;
     B[1] =  Bphi * cosf;
     B[2] =  0.0;

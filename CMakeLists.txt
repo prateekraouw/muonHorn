@@ -20,6 +20,7 @@ set(SOURCES
     src/EventAction.cc
     src/SteppingAction.cc
     src/HornField.cc
+    src/Cli.cc
 )
 
 # Add the executable with explicit source files

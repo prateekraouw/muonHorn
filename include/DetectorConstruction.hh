@@ -6,15 +6,15 @@
 #include "G4ThreeVector.hh"
 #include "G4MagneticField.hh"
 #include "G4FieldManager.hh"
+#include "Params.hh"
 
 class G4VPhysicalVolume;
 class G4LogicalVolume;
-class ElectricFieldSetup;
 
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
-    DetectorConstruction();
+    explicit DetectorConstruction(const HornParams& hp);
     ~DetectorConstruction() override;
     G4VPhysicalVolume* Construct() override;
 
@@ -45,6 +45,9 @@ private:
     G4ThreeVector fDetector2Position;
     G4ThreeVector fDetector3Position;
     G4ThreeVector fDetector4Position;
+    
+    HornParams hp_;
+    G4LogicalVolume* BuildHornLV(const HornParams& hp); // builds one horn (local z: 0..L)
 
 };
 

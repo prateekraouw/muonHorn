@@ -99,10 +99,10 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
     // Identify which detector (if any)
     int detID = 0;
-    if(preLV == fDetector1Volume) detID = 1;
-    else if (preLV == fDetector2Volume) detID = 2;
+    if(preLV == fDetector2Volume) detID = 2;
+    /*else if (preLV == fDetector2Volume) detID = 1;
     else if (preLV == fDetector3Volume) detID = 3;
-    else if (preLV == fDetector4Volume) detID = 4;
+    else if (preLV == fDetector4Volume) detID = 4;*/
 
     if (detID == 0) return; // not a detector crossing we track
 
@@ -112,7 +112,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     const G4String pname = trk->GetDefinition()->GetParticleName();
 
     // Only muons and pions
-    if (!(pname=="mu+" || pname=="mu-" || pname=="pi+" || pname=="pi-")) return;
+    if (!(/*pname=="mu+" || pname=="mu-" || pname=="pi-" ||*/ pname=="pi+")) return;
    
     // Pre-step kinematics (always valid here)
     const auto* pre = step->GetPreStepPoint();
