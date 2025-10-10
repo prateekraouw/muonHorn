@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
 """
 GPU-Optimized Horn Optimization for Compute Clusters
 - CUDA-accelerated data processing
@@ -371,7 +372,7 @@ def train_xgb_gpu(X: np.ndarray, y: np.ndarray, rounds: int = 50):
         objective="reg:squarederror",
         max_depth=5,
         n_estimators=1500,
-        learning_rate=0.05,
+        learning_rate=0.075,
         subsample=0.85,
         colsample_bytree=0.9,
         reg_alpha=0.1,
@@ -640,7 +641,7 @@ if __name__ == "__main__":
             DEFAULT_BOUNDS, 
             n_seed=20, 
             n_rounds=20, 
-            k_candidates=10,
+            k_candidates=3,
             parallel_eval=True
         )
         
