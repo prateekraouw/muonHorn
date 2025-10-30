@@ -68,6 +68,13 @@ The simulation binary accepts a small set of command-line flags parsed in `src/C
 - --out_dir <string>  
   - Output directory where CSV and log files will be written.
 
+To build the project:
+```bash
+mkdir build && cs build
+cmake ..
+make 
+```
+
 Example:
 ```bash
 ./horn_focus --a_mm 0.5 --r_neck_mm 5 --Rout_mm 50 --zMin_mm 0 --zMax_mm 2000 --I_A 61000 --n_events 10000 --out_dir ./out_run1
