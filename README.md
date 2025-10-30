@@ -44,7 +44,7 @@ The ultimate goal is to study the collection efficiency of muons/pions from the 
     
 ---
 
-## Command-line options (from src/Cli.cc)
+## Command-line options
 The simulation binary accepts a small set of command-line flags parsed in `src/Cli.cc`. These directly set horn geometry, field/current and run settings. Flags and meanings:
 
 - --a_mm <double>  
