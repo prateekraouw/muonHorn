@@ -69,6 +69,7 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
+    // pre-installed momentum cuts
     constexpr G4double kPmin = 100.*MeV;
     constexpr G4double kPmax = 400.*MeV;
   
@@ -87,7 +88,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     }
   
     // Only care about first step after entering any volume
-    if (!step->IsFirstStepInVolume()) return;
+    if (!step->IsFirstStepInVolume()) return; // logged only once hence no duplicates
 
     // Safely get pre-step logical volume
     const auto preHandle = step->GetPreStepPoint()->GetTouchableHandle();
@@ -112,7 +113,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     const G4String pname = trk->GetDefinition()->GetParticleName();
 
     // Only muons and pions
-    if (!(/*pname=="mu+" || pname=="mu-" || pname=="pi-" ||*/ pname=="pi+")) return;
+    if (!(pname=="mu+" || pname=="mu-" || pname=="pi-" || pname=="pi+")) return;
    
     // Pre-step kinematics (always valid here)
     const auto* pre = step->GetPreStepPoint();

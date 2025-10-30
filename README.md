@@ -35,7 +35,7 @@ The ultimate goal is to study the collection efficiency of muons/pions from the 
   - Multiple cylindrical disk detectors placed downstream (e.g., at 2.1 m and 5.1 m). And updtaed as per the input parameters 
   - Record entries of selected particles with six-dimensional vector output.  
 
-- **Output**   
+- **Output (It only logs particles in the range of 100-400 GeV which can be changes in src/SteppingAction.cc ln:72)**   
   - Merge the CSV output (using the command given below in the `build/` directory) for combining worker outputs. 
   - Analyze the particle output using in the ***6D_merged.csv*** file.  
   - ```bash
@@ -74,13 +74,17 @@ Example:
 ```
 
 Notes:
-- Units are millimeters (mm) for geometry parameters and Amperes (A) for current.
+- Units are millimeters (mm) for geometry parameters and Amperes (A) for current. And are adjusted automatically in the GEANT code.
 - The CLI parsing in `src/Cli.cc` will throw a runtime error if a flag that expects a value is given without one.
 
 ---
 
 ## HornXGB_cluster.py — purpose and usage
-This repository includes a Python helper script `HornXGB_cluster.py` (see file in repo root or scripts/). The script uses XGBoost to build a model that assists analysis of simulation outputs (for example: classify or cluster particles / horn parameter combinations according to collection efficiency or other figures-of-merit).
+This repository includes a Python helper script `HornXGB_cluster.py` (see file in repo root or scripts/). 
+
+The script optimizes all the parameters that the GEANT4 takes as CLI input and returns the best performing model. 
+
+***Scoring:*** Based on **increasing transmission** and **reduce emittance**.
 
 Typical pipeline implemented by the script:
 1. Load simulation-derived CSV data (e.g., 6D vectors, per-particle features, or per-run summaries).
@@ -89,12 +93,8 @@ Typical pipeline implemented by the script:
    - Split dataset into train/test (or k-fold CV).
    - Set XGBoost hyperparameters (learning_rate, max_depth, n_estimators, etc.).
    - Train and evaluate (accuracy, ROC AUC, RMSE or other metrics).
-4. Optional: use model outputs to assign cluster/labels, or to predict acceptance/efficiency for new parameter sets.
-5. Produce artifacts:
-   - Saved model (joblib / XGBoost native format).
-   - Evaluation metrics and logs.
-   - Feature importance plots and optionally SHAP explanations.
-   - Predictions CSV with appended cluster/score columns.
+4. Output prodes a **dataset.csv** file which has all the tested parameters and their respective performance. 
+5. The model has a set of bounds beyyounf which it cannot go. It can be seen in the ```HornXGB_cluster.py```
 
 Dependencies (install with pip):
 - python >= 3.8
@@ -102,25 +102,14 @@ Dependencies (install with pip):
 - numpy
 - scikit-learn
 - xgboost
-- matplotlib (optional)
-- joblib (optional)
-- shap (optional, for explanation)
 
 Example usage patterns:
 - Train and validate:
   ```bash
-  python HornXGB_cluster.py --input 6D_merged.csv --target accepted --task classification --out model_run1
-  ```
-- Predict with a saved model:
-  ```bash
-  python HornXGB_cluster.py --predict --model model_run1.xgb --input new_sim_data.csv --out predictions.csv
+  python HornXGB_cluster.py
   ```
 
 What to expect in the results:
 - A trained XGBoost model that can score particle or run-level entries for the provided target (e.g., identify particles that are within acceptance).
 - Feature importance ranking showing which geometry, field or kinematic features most affect the target.
 - CSV output with predicted labels/scores that can be merged back into downstream analysis.
-
-If you want, I can:
-- Add concrete command-line parsing examples for `HornXGB_cluster.py` (flags and defaults) if you paste the script.
-- Add a minimal example script that trains a small XGBoost model on a subset of the simulation CSV for demonstration.
