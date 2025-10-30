@@ -32,7 +32,7 @@ The ultimate goal is to study the collection efficiency of muons/pions from the 
   - Target interaction produces hadronic showers (requires FTFP_BERT or equivalent physics list).  
 
 - **Detectors**  
-  - Multiple cylindrical disk detectors placed downstream (e.g., at 2.1 m and 5.1 m).  
+  - Multiple cylindrical disk detectors placed downstream (e.g., at 2.1 m and 5.1 m). And updtaed as per the input parameters 
   - Record entries of selected particles with six-dimensional vector output.  
 
 - **Output**   
